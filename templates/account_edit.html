@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}アカウント編集 - AskME{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">アカウント編集</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">ユーザー名</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ current_user.name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bio" class="form-label">自己紹介</label>
+                        <textarea class="form-control" id="bio" name="bio" rows="3">{{ current_user.bio }}</textarea>
+                        <div class="form-text">Markdown形式で記述できます。</div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h4>ソーシャルリンク</h4>
+                    <div class="mb-3">
+                        <label for="youtube_url" class="form-label">
+                            <i class="bi bi-youtube"></i> YouTube
+                        </label>
+                        <input type="url" class="form-control" id="youtube_url" name="youtube_url" value="{{ current_user.youtube_url or '' }}" placeholder="https://youtube.com/@username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="twitter_url" class="form-label">
+                            <i class="bi bi-twitter-x"></i> Twitter
+                        </label>
+                        <input type="url" class="form-control" id="twitter_url" name="twitter_url" value="{{ current_user.twitter_url or '' }}" placeholder="https://twitter.com/username">
+                    </div> 
+                    <div class="mb-3">
+                        <label for="github_url" class="form-label">
+                            <i class="bi bi-github"></i> GitHub
+                        </label>
+                        <input type="url" class="form-control" id="github_url" name="github_url" value="{{ current_user.github_url or '' }}" placeholder="https://github.com/username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="website_url" class="form-label">
+                            <i class="bi bi-globe"></i> Webサイト
+                        </label>
+                        <input type="url" class="form-control" id="website_url" name="website_url" value="{{ current_user.website_url or '' }}" placeholder="https://example.com">
+                    </div>
+
+                    <hr class="my-4">
+                    <h4>パスワード変更</h4>
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">現在のパスワード</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password">
+                        <div class="form-text">パスワードを変更する場合のみ入力してください</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">新しいパスワード</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg"></i> 更新
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

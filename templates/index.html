@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}ホーム - AskMe{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>質問一覧</h1>
+    </div>
+    {% if current_user.is_authenticated %}
+    <div class="col-auto">
+        <a href="{{ url_for('question_create') }}" class="btn btn-primary">質問を投稿</a>
+    </div>
+    {% endif %}
+</div>
+
+{% for question in questions %}
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title">
+                <a href="{{ url_for('question_detail', question_id=question.id) }}" class="text-decoration-none">
+                    {{ question.content[:100] }}{% if question.content|length > 100 %}...{% endif %}
+                </a>
+            </h5>
+            <small class="text-muted">{{ question.created_at.strftime('%Y/%m/%d %H:%M') }}</small>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <div>
+                <a href="{{ url_for('user_profile', user_id=question.user.id) }}" class="text-decoration-none">
+                    {{ question.user.name }}
+                </a>
+            </div>
+            <div>
+                <span class="me-3">
+                    <i class="bi bi-chat"></i> {{ question.answers.count() }} 回答
+                </span>
+                <span>
+                    <i class="bi bi-heart"></i> {{ question.likes }} いいね
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    まだ質問が投稿されていません。
+</div>
+{% endfor %}
+{% endblock %}

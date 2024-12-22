@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}ユーザーランキング - AskMe{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">ユーザーランキング</h2>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>順位</th>
+                <th>ユーザー名</th>
+                <th>獲得いいね数</th>
+                <th>回答数</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>
+                    <a href="{{ url_for('user_profile', user_id=user.id) }}" class="text-decoration-none">
+                        {{ user.name }}
+                    </a>
+                </td>
+                <td>{{ user.total_likes }}</td>
+                <td>{{ user.total_answers }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">ユーザーがいません。</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
